@@ -2,8 +2,6 @@ package com.retimotor.fluxo.dto;
 
 import java.util.Objects;
 
-//@SuppressWarnings("unused")
-
 public class UserDto {
 
 	private Long id;
