@@ -10,10 +10,10 @@ import com.retimotor.fluxo.entity.UserEntity;
 import com.retimotor.fluxo.mapper.UserMapper;
 import com.retimotor.fluxo.repository.UserRepository;
 
-import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Service
-@Transactional
 public class UserService {
 	
 	@Autowired
@@ -22,25 +22,25 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public UserService(UserRepository userRepository,UserMapper userMapper) {
-		this.userRepository = userRepository;
-		this.userMapper = userMapper;
-	}
+//	public UserService(UserRepository userRepository,UserMapper userMapper) {
+//		this.userRepository = userRepository;
+//		this.userMapper = userMapper;
+//	}
 	
 	public List<UserDto> listAll(){
 		List<UserEntity> userEntities = userRepository.findAll();
-		return userEntities.stream().map(userMapper::toDto).toList();
+		return userEntities.stream().map(userMapper::entityToDto).toList();
 	}
 	
 	public void insert(UserDto userDto ) {
-		UserEntity userEntity = userMapper.toEntity(userDto);
+		UserEntity userEntity = userMapper.dtoToEntity(userDto);
 		userRepository.save(userEntity);
 	}
 	
 	public UserDto alter(UserDto userDto) {
-		UserEntity userEntity = userMapper.toEntity(userDto);
+		UserEntity userEntity = userMapper.dtoToEntity(userDto);
 		UserEntity saveUserEntity = userRepository.save(userEntity);
-		return userMapper.toDto(saveUserEntity);
+		return userMapper.entityToDto(saveUserEntity);
 	}
 
 	public void delete(Long id) {
@@ -49,7 +49,7 @@ public class UserService {
 	}
 	
 	public UserDto findId(Long Id) {
-		return userMapper.toDto(userRepository.findById(Id).get());
+		return userMapper.entityToDto(userRepository.findById(Id).get());
 	}
 	
 }

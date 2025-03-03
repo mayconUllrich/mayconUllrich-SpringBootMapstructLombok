@@ -1,17 +1,44 @@
 package com.retimotor.fluxo.dto;
 
-import jakarta.persistence.Column;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.Objects;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@SuppressWarnings("unused")
 public class ItemFlowTypeDto {
 	
 	private Long id;
 	private String description;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(description, id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemFlowTypeDto other = (ItemFlowTypeDto) obj;
+		return Objects.equals(description, other.description) && Objects.equals(id, other.id);
+	}
+	@Override
+	public String toString() {
+		return "ItemFlowTypeDto [id=" + id + ", description=" + description + "]";
+	}
+	public ItemFlowTypeDto() {
+		super();
+	}
 	
 }
